@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/7b988689d5.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../CSS/index.css" />
+  <a href="post-detail.html" class="blog-card">...</a>
+
   <title>Blog Layout</title>
 </head>
+
 <body>
 
   <header class="navbar">
     <div class="logo">RIKKEI_EDU_BLOG</div>
     <input type="text" class="search-input" placeholder="Search for articles..." />
-    <div class="auth-buttons">
-      <button>Sign Up</button>
-      <button>Sign In</button>
+    <div class="user-menu">
+      <img src="../assets/imgs/Avatar.png" class="avatar" onclick="toggleUserDropdown()" />
+      <div id="userDropdown" class="dropdown-menu hidden">
+        <div class="profile-info">
+          <img src="../assets/imgs/Avatar.png" class="dropdown-avatar" />
+          <div>
+            <strong>Rikkei</strong>
+            <p>rikkei@gmail.com</p>
+          </div>
+        </div>
+        <ul>
+          <li><a href="#">View profile</a></li>
+          <li><a href="#">Update profile picture</a></li>
+          <li><a href="#">Change password</a></li>
+          <li><a href="#">Log out</a></li>
+        </ul>
+      </div>
     </div>
+    
   </header>
 
   <main class="content">
@@ -24,17 +43,95 @@
       <h2>Recent blog posts</h2>
       <div class="recent-grid">
 
-        <div class="post-card">
-            <img src="../assets/imgs/article1.png" alt="article">
+        <div class="recent-layout">
+          <!-- Bài viết lớn bên trái -->
+          <div class="featured-post">
+            <img src="../assets/imgs/article1.png" alt="Main Article" />
+            <div class="post-info">
+              <p class="date">Date: 2025-02-25</p>
+              <h3>A Productive Day at Work</h3>
+              <p class="desc">
+                Today was a really productive day at work. I managed to finish a report ahead of schedule and received positive feedback from my manager.
+              </p>
+              <span class="tag journal">Daily Journal</span>
+            </div>
+          </div>
+        
+          <!-- Hai bài viết nhỏ bên phải -->
+          <div class="side-posts">
+            <!-- Post 1 -->
+            <div class="small-post">
+              <img src="../assets/imgs/article2.png" alt="Article" />
+              <div class="post-info">
+                <p class="date">Date: 2025-02-24</p>
+                <h4>My First Job Interview Experience</h4>
+                <p class="desc">I had my first job interview today! I was nervous at first, but as the conversation went on, I felt more confident.</p>
+                <span class="tag work">Work & Career</span>
+              </div>
+            </div>
+        
+            <!-- Post 2 -->
+            <div class="small-post">
+              <img src="../assets/imgs/article3.png" alt="Article" />
+              <div class="post-info">
+                <p class="date">Date: 2025-02-23</p>
+                <h4>Overthinking Everything</h4>
+                <p class="desc">Lately, I have been overthinking everything, from small decisions to bigger life choices. I know I should trust myself.</p>
+                <span class="tag thoughts">Personal Thoughts</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="post-card"></div>
-        <div class="post-card"></div>
-      </div>
+        
     </section>
 
 
     <div class="add-article">
-      <h3>ADD NEW ARTICLE <span>&plus;</span></h3>
+
+      <!-- Nút mở modal -->
+      <button id="openModalBtn" class="open-modal-btn">➕ Add New Article</button>
+
+      <!-- Modal -->
+      <div id="articleModal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close-btn" id="closeModalBtn">&times;</span>
+          <h2>📝 Add New Article</h2>
+
+          <label for="title">Title:</label>
+          <input type="text" id="title" placeholder="Enter your article title" />
+
+          <label for="category">Article Categories:</label>
+          <input type="text" id="category" placeholder="Enter category" />
+
+          <label for="mood">Mood:</label>
+          <input type="text" id="mood" value="😊 Happy" readonly />
+
+          <label for="content">Content:</label>
+          <textarea id="content" rows="5" placeholder="Write your article..."></textarea>
+
+          <div class="status-section">
+            <span>Status:</span>
+            <label for="status-public">
+              <input type="radio" id="status-public" name="status" value="public" checked />
+              Public
+            </label>
+            <label for="status-private">
+              <input type="radio" id="status-private" name="status" value="private" />
+              Private
+            </label>
+          </div>
+
+
+          <div class="upload-section">
+            <label for="fileUpload" class="upload-label">
+              <i class="fa-solid fa-upload"></i> Browse and choose a file to upload
+            </label>
+            <input type="file" id="fileUpload" hidden>
+          </div>
+
+          <button class="submit-btn">Add</button>
+        </div>
+      </div>
     </div>
 
 
@@ -47,16 +144,72 @@
     </nav>
 
 
-    <section class="all-posts-grid">
+    <div class="blog-grid">
+      <!-- Card 1 -->
+      <div class="blog-card">
+        <img src="../assets/imgs/article1.png" alt="Article Image" />
+        <div class="card-content">
+          <p class="date">Date: 2025-02-25</p>
+          <div class="card-header">
+            <h3>A Productive Day at Work</h3>
+            <span class="arrow">↗</span>
+          </div>
+          <p class="desc">Today was a really productive day at work. I managed to finish a report ahead of schedule and received positive feedback from my manager.</p>
+          <span class="tag journal">Daily Journal</span>
+        </div>
+      </div>
 
-      <div class="post-card"></div>
-      <div class="post-card"></div>
-      <div class="post-card"></div>
-      <div class="post-card"></div>
-      <div class="post-card"></div>
-      <div class="post-card"></div>
-    </section>
+      <div class="blog-card"
+     data-title="A Productive Day at Work"
+     data-content="Today was a really productive day at work. I managed to finish a report ahead of schedule and received positive feedback from my manager."
+     data-avatar="../assets/imgs/Avatar.png"
+     data-likes="15"
+     data-replies="6"
+     data-comments='[
+       {"avatar":"../assets/imgs/Avatar1.png", "text":"very good!", "likes":15, "replies":6},
+       {"avatar":"../assets/imgs/Avatar2.png", "text":"hello rikkei!", "likes":3, "replies":1}
+     ]'>
+  <img src="../assets/imgs/article1.png" alt="Article Image" />
+  <div class="card-content">
+    <p class="date">Date: 2025-04-24</p>
+    <div class="card-header">
+      <h3>A Productive Day at Work</h3>
+      <span class="arrow">↗</span>
+    </div>
+    <p class="desc">Finished early, had time for a walk, got praised!</p>
+    <span class="tag journal">Daily Journal</span>
+  </div>
+</div>
 
+    
+      <!-- Card 2 -->
+      <div class="blog-card">
+        <img src="../assets/imgs/article2.png" alt="Article Image" />
+        <div class="card-content">
+          <p class="date">Date: 2025-02-24</p>
+          <div class="card-header">
+            <h3>My First Job Interview Experience</h3>
+            <span class="arrow">↗</span>
+          </div>
+          <p class="desc">I had my first job interview today! I was nervous at first, but as the conversation went on, I felt more confident.</p>
+          <span class="tag work">Work & Career</span>
+        </div>
+      </div>
+    
+      <!-- Card 3 -->
+      <div class="blog-card">
+        <img src="../assets/imgs/article3.png" alt="Article Image" />
+        <div class="card-content">
+          <p class="date">Date: 2025-02-23</p>
+          <div class="card-header">
+            <h3>Overthinking Everything</h3>
+            <span class="arrow">↗</span>
+          </div>
+          <p class="desc">Lately, I have been overthinking everything, from small decisions to bigger life choices. I know I should trust myself.</p>
+          <span class="tag thoughts">Personal Thoughts</span>
+        </div>
+      </div>
+    </div>
 
     <div class="pagination">
       <button>&laquo; Previous</button>
@@ -70,7 +223,29 @@
       <button>Next &raquo;</button>
     </div>
   </main>
-
+  <div id="postDetailModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-btn" id="closeDetailModal">&times;</span>
+  
+      <div class="post-detail">
+        <div class="main-post">
+          <img src="" alt="Author Avatar" class="author-avatar" id="modalAvatar" />
+          <div class="post-content">
+            <h2 id="modalTitle"></h2>
+            <p id="modalContent"></p>
+            <div class="post-actions">
+              <span id="modalLikes">0 Likes</span>
+              <span id="modalReplies">0 Replies</span>
+            </div>
+          </div>
+        </div>
+  
+        <div id="modalComments">
+          <!-- Các comment sẽ được thêm vào bằng JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="footer-container">
@@ -78,14 +253,14 @@
       <div class="footer-brand">
         <h2>MY BLOG</h2>
       </div>
-  
+
       <!-- Cột 2: About -->
       <div class="footer-col">
         <h4>About</h4>
         <strong>Rareblocks</strong>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum aliquet accumsan porta lectus...</p>
       </div>
-  
+
       <!-- Cột 3: Company -->
       <div class="footer-col">
         <h4>Company</h4>
@@ -96,7 +271,7 @@
           <li><a href="#">Career</a></li>
         </ul>
       </div>
-  
+
       <!-- Cột 4: Help -->
       <div class="footer-col">
         <h4>Help</h4>
@@ -107,7 +282,7 @@
           <li><a href="#">Privacy Policy</a></li>
         </ul>
       </div>
-  
+
       <!-- Cột 5: Resources -->
       <div class="footer-col">
         <h4>Resources</h4>
@@ -119,7 +294,7 @@
         </ul>
       </div>
     </div>
-  
+
     <!-- Social Media Icons -->
     <div class="footer-social">
       <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -128,8 +303,31 @@
       <a href="#"><i class="fa-brands fa-github"></i></a>
     </div>
   </footer>
+  <div id="postDetailModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="back-btn" id="closeDetailModal">←</button>
   
+      <div class="post-detail">
+        <div class="main-post">
+          <img src="" alt="Author Avatar" class="author-avatar" id="modalAvatar" />
+          <div class="post-content">
+            <h2 id="modalTitle"></h2>
+            <p id="modalContent"></p>
+            <div class="post-actions">
+              <span id="modalLikes">0 Likes</span>
+              <span id="modalReplies">0 Replies</span>
+            </div>
+          </div>
+        </div>
   
+        <div id="modalComments">
+          <!-- Các comment sẽ được thêm vào bằng JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
   
+  <script src="../JS/index.js"></script>
 </body>
+
 </html>
