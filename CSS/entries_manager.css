@@ -1,26 +1,32 @@
-/* entries_manager.css */
-
-body {
+/* Reset */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
     font-family: Arial, sans-serif;
     background: #f4f4f4;
-}
-
-.container {
+    color: #333;
+  }
+  
+  /* Layout */
+  .container {
     display: flex;
     height: 100vh;
-}
-
-.sidebar {
+  }
+  
+  .sidebar {
     width: 220px;
     background-color: #2f3542;
-    color: #fff;
+    color: white;
     display: flex;
     flex-direction: column;
     padding: 1rem;
-}
-
-.menu-btn {
+  }
+  
+  .menu-btn {
     background: none;
     border: none;
     color: white;
@@ -30,79 +36,187 @@ body {
     cursor: pointer;
     margin-bottom: 10px;
     transition: background 0.3s;
-}
-
-.menu-btn:hover {
+  }
+  
+  .menu-btn:hover {
     background-color: #57606f;
-}
-
-.logout {
+  }
+  
+  .logout {
     margin-top: auto;
     background-color: #ff4757;
-}
-
-.main-content {
+  }
+  
+  .main-content {
     flex: 1;
     padding: 1.5rem;
     background-color: #f7f7f7;
-}
-
-.topbar {
+  }
+  
+  .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-}
-
-.search-box {
+  }
+  
+  .search-box {
     padding: 8px;
     width: 250px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-.icons span {
+  }
+  
+  .icons span {
     margin-left: 10px;
     font-size: 20px;
     cursor: pointer;
-}
-
-.entry-list {
+  }
+  
+  /* Content */
+  .content-box {
     background: white;
     border-radius: 8px;
     padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.entry-list input {
-    padding: 8px;
-    margin-right: 8px;
-    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .entry-form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .entry-form input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
     border: 1px solid #ccc;
-}
-
-.entry-list button {
-    padding: 8px 12px;
-    background-color: #1e90ff;
+  }
+  
+  .add-btn {
+    padding: 10px 20px;
+    background-color: #3498db;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-}
-
-.entry-list button:hover {
-    background-color: #0077cc;
-}
-
-table {
+  }
+  
+  .add-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Table */
+  .styled-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
-}
-
-th,
-td {
+  }
+  
+  .styled-table th, .styled-table td {
     padding: 12px;
-    border-bottom: 1px solid #ddd;
     text-align: left;
-}
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .action-btn {
+    padding: 6px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .edit-btn {
+    background-color: #2ecc71;
+  }
+  
+  .edit-btn:hover {
+    background-color: #27ae60;
+  }
+  
+  .delete-btn {
+    background-color: #e74c3c;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: 0.3s ease;
+  }
+  
+  .modal.hidden {
+    display: none;
+    opacity: 0;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    min-width: 300px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .cancel-btn, .confirm-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .cancel-btn {
+    background-color: #95a5a6;
+    color: white;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #7f8c8d;
+  }
+  
+  .confirm-btn {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .confirm-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  

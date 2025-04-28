@@ -18,6 +18,7 @@ const articles = [
   ];
   
   let editArticleId = null;
+  let deleteArticleId = null;
   
   function renderArticles() {
     const table = document.getElementById("articleTable");
@@ -25,7 +26,7 @@ const articles = [
       <tr>
         <td><img src="${article.image}" alt="Image" class="article-image" /></td>
         <td>${article.title}</td>
-        <td>${article.category}</td>
+        <td>${article.category}
         <td>${article.content}</td>
         <td>${article.status}</td>
         <td>
@@ -40,6 +41,37 @@ const articles = [
         </td>
       </tr>
     `).join("");
+  }
+  
+  function openAddModal() {
+    document.getElementById("articleModal").classList.remove("hidden");
+  }
+  
+  function closeAddModal() {
+    document.getElementById("articleModal").classList.add("hidden");
+    document.getElementById("upload").value = "";
+  }
+  
+  function addArticle() {
+    const title = document.getElementById("title").value.trim();
+    const category = document.getElementById("category").value.trim();
+    const mood = document.getElementById("mood").value;
+    const content = document.getElementById("content").value.trim();
+    const status = document.querySelector('input[name="status"]:checked').value;
+  
+    const newArticle = {
+      id: Date.now(),
+      image: "../assets/imgs/default.png",
+      title,
+      category,
+      mood,
+      content,
+      status
+    };
+  
+    articles.unshift(newArticle);
+    renderArticles();
+    closeAddModal();
   }
   
   function openEditModal(id) {
@@ -70,8 +102,6 @@ const articles = [
     document.getElementById("editModal").classList.add("hidden");
   }
   
-  let deleteArticleId = null;
-  
   function openDeleteModal(id) {
     deleteArticleId = id;
     document.getElementById("deleteModal").classList.remove("hidden");
@@ -98,10 +128,19 @@ const articles = [
     }
   }
   
-  function openAddModal() {
-    alert("Chức năng thêm mới chưa được phát triển.");
-  }
-  
   // Initialize
   renderArticles();
+  
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", function () {
+        localStorage.removeItem("loggedIn");
+        window.location.href = "login.html";
+      });
+    }
+  
+    // (đoạn render user cũ vẫn giữ nguyên)
+  });
   

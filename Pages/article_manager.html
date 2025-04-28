@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Article Manager</title>
   <link rel="stylesheet" href="../CSS/article_manager.css">
 </head>
@@ -13,7 +13,7 @@
       <button class="menu-btn" onclick="window.location.href='user_manager.html'">Manage Users</button>
       <button class="menu-btn" onclick="window.location.href='entries_manager.html'">Manage Entries</button>
       <button class="menu-btn active">Manage Articles</button>
-      <button class="menu-btn logout" onclick="window.location.href='login.html'">Log out</button>
+      <button class="menu-btn logout" id="logoutBtn" onclick="window.location.href='login.html'">Log out</button>
     </aside>
 
     <!-- Main Content -->
@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody id="articleTable">
-            <!-- Data will be rendered here by JS -->
+            <!-- JS sẽ render dữ liệu ở đây -->
           </tbody>
         </table>
 
@@ -61,7 +61,7 @@
     </main>
   </div>
 
-  <!-- Modal for Edit -->
+  <!-- Modal: Edit Article -->
   <div class="modal hidden" id="editModal">
     <div class="modal-content">
       <h3>Sửa bài viết</h3>
@@ -75,13 +75,54 @@
     </div>
   </div>
 
-  <!-- Modal for Confirm Delete -->
+  <!-- Modal: Confirm Delete -->
   <div class="modal hidden" id="deleteModal">
     <div class="modal-content">
       <h3>Bạn có chắc chắn muốn xóa bài viết này?</h3>
       <div class="modal-actions">
         <button onclick="confirmDelete()">Xóa</button>
         <button onclick="closeDeleteModal()">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add New Article -->
+  <div class="modal hidden" id="articleModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeAddModal()" style="cursor:pointer;float:right;">&times;</span>
+      <h2>📝 Add New Article</h2>
+
+      <label for="title">Title:</label>
+      <input type="text" id="title" placeholder="Enter your article title" />
+
+      <label for="category">Article Categories:</label>
+      <input type="text" id="category" placeholder="Enter category" />
+
+      <label for="mood">Mood:</label>
+      <select id="mood">
+        <option value="😊 Happy">😊 Happy</option>
+        <option value="😢 Sad">😢 Sad</option>
+        <option value="😎 Confident">😎 Confident</option>
+        <option value="😴 Tired">😴 Tired</option>
+      </select>
+
+      <label for="content">Content:</label>
+      <textarea id="content" rows="5" placeholder="Write your article..."></textarea>
+
+      <div class="status-section">
+        <span>Status:</span>
+        <label><input type="radio" name="status" value="Public" checked /> Public</label>
+        <label><input type="radio" name="status" value="Private" /> Private</label>
+      </div>
+      
+
+      <label for="upload">Upload Image:</label>
+      <input type="file" id="upload" accept="image/*" onchange="previewImage(event)">
+      <img id="preview" style="max-width: 100%; margin-top: 10px; display: none;" />
+
+      <div class="modal-actions">
+        <button onclick="addArticle()">Add</button>
+        <button onclick="closeAddModal()">Cancel</button>
       </div>
     </div>
   </div>

@@ -95,3 +95,28 @@ th.sortable {
   margin-top: 20px;
   text-align: right;
 }
+
+
+
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-size: 0.9rem;
+  color: #888;
+}

@@ -1,3 +1,4 @@
+/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -59,9 +60,10 @@ body {
 
 .form-group {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 50px; /* Phải nới rộng để chứa cả input và lỗi */
 }
 
+/* Input */
 .form-group input {
   width: 100%;
   padding: 12px 45px 12px 10px;
@@ -70,6 +72,12 @@ body {
   background: transparent;
   color: white;
   font-size: 14px;
+  outline: none;
+}
+
+/* Khi lỗi */
+input.input-error {
+  border: 1px solid #ff4d4f !important;
 }
 
 .form-group input::placeholder {
@@ -153,4 +161,28 @@ footer {
 
 .footer-icons a:hover {
   color: cyan;
+}
+
+
+.form-group i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: cyan;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+/* Error text */
+.error-message {
+  position: absolute;
+  bottom: -20px; /* đẩy text lỗi xuống dưới input */
+  left: 5px;
+  color: #ff4d4f;
+  font-size: 12px;
+  display: none;
 }

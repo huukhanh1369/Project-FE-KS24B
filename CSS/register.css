@@ -106,3 +106,14 @@ button:hover {
   margin-left: 5px;
   font-weight: bold;
 }
+
+.input-error {
+  border: 1px solid #ff4d4f !important;
+}
+
+.error-message {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 5px;
+  display: none;
+}
