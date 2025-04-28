@@ -1,74 +1,97 @@
+/* user_manager.css */
+
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  .container {
-    display: flex;
-    height: 100vh;
-  }
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
 
-  .sidebar {
-    width: 200px;
-    background: #f0f0f0;
-    padding: 20px;
-  }
-  
-  .menu-btn {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #dbeafe;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .logout {
-    background-color: #fecaca;
-  }
-  
+.container {
+  display: flex;
+  height: 100vh;
+}
 
-  .main-content {
-    flex: 1;
-    padding: 20px;
-  }
-  
+.sidebar {
+  width: 220px;
+  background-color: #2f3542;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
 
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .search-box {
-    width: 60%;
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
-  
-  .icons span {
-    margin-left: 15px;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
+.menu-btn {
+  background: none;
+  border: none;
+  color: white;
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.3s;
+}
 
-  .user-list {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    min-height: 200px;
-  }
-  
+.menu-btn:hover {
+  background-color: #57606f;
+}
 
-  .pagination {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
+.logout {
+  margin-top: auto;
+  background-color: #ff4757;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1.5rem;
+  background-color: #f7f7f7;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  padding: 8px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.icons span {
+  margin-left: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.user-list {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th.sortable {
+  cursor: pointer;
+  color: #1e90ff;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: right;
+}

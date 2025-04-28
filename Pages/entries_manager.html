@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entries Manager</title>
+    <link href="../CSS/entries_manager.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <button class="menu-btn" onclick="window.location.href='user_manager.html'">Manage Users</button>
+            <button class="menu-btn" onclick="window.location.href='entries_manager.html'">Manage Entries</button>
+            <button class="menu-btn" onclick="window.location.href='article_manager.html'">Manage Article</button>
+            <button class="menu-btn logout" onclick="window.location.href='login.html'">Log out</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+
+            <div class="topbar">
+                <input type="text" placeholder="Search category..." class="search-box" />
+                <div class="icons">
+                    <span>🔔</span>
+                    <span>✉️</span>
+                    <span>👤</span>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <div class="entry-form">
+                    <input type="text" id="categoryName" placeholder="Enter new category" />
+                    <button onclick="addCategory()">Add</button>
+
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Category Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="categoryTable">
+                            <!-- Data will be rendered here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script src="../JS/entries_manager.js"></script>
+</body>
+
+</html>

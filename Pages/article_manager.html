@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article Manager</title>
+  <link rel="stylesheet" href="../CSS/article_manager.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <button class="menu-btn" onclick="window.location.href='user_manager.html'">Manage Users</button>
+      <button class="menu-btn" onclick="window.location.href='entries_manager.html'">Manage Entries</button>
+      <button class="menu-btn active">Manage Articles</button>
+      <button class="menu-btn logout" onclick="window.location.href='login.html'">Log out</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="topbar">
+        <input type="text" placeholder="Search articles..." class="search-box" />
+        <div class="icons">
+          <span>🔔</span>
+          <span>✉️</span>
+          <span>👤</span>
+        </div>
+      </header>
+
+      <div class="content-box">
+        <div class="header-section">
+          <h2>Quản lý bài viết</h2>
+          <button class="add-btn" onclick="openAddModal()">Thêm mới bài viết</button>
+        </div>
+
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Ảnh</th>
+              <th>Tiêu đề</th>
+              <th>Chủ đề</th>
+              <th>Nội dung</th>
+              <th>Trạng thái</th>
+              <th>Chỉnh sửa trạng thái</th>
+              <th>Hành động</th>
+            </tr>
+          </thead>
+          <tbody id="articleTable">
+            <!-- Data will be rendered here by JS -->
+          </tbody>
+        </table>
+
+        <div class="pagination">
+          <button>← Previous</button>
+          <div class="pages">
+            <span>1</span><span>2</span><span>3</span><span>...</span><span>10</span>
+          </div>
+          <button>Next →</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal for Edit -->
+  <div class="modal hidden" id="editModal">
+    <div class="modal-content">
+      <h3>Sửa bài viết</h3>
+      <input type="text" id="editTitle" placeholder="Tiêu đề">
+      <input type="text" id="editCategory" placeholder="Chủ đề">
+      <textarea id="editContent" placeholder="Nội dung" rows="5"></textarea>
+      <div class="modal-actions">
+        <button onclick="saveEdit()">Lưu</button>
+        <button onclick="closeEditModal()">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Confirm Delete -->
+  <div class="modal hidden" id="deleteModal">
+    <div class="modal-content">
+      <h3>Bạn có chắc chắn muốn xóa bài viết này?</h3>
+      <div class="modal-actions">
+        <button onclick="confirmDelete()">Xóa</button>
+        <button onclick="closeDeleteModal()">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../JS/article_manager.js"></script>
+</body>
+</html>

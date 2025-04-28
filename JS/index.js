@@ -154,3 +154,27 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("userDropdown").classList.toggle("hidden");
   }
   
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll(".carousel-item");
+    let current = 0;
+  
+    function showItem(index) {
+      items.forEach((item, i) => {
+        item.classList.toggle("active", i === index);
+      });
+    }
+  
+    function startCarousel() {
+      setInterval(() => {
+        current = (current + 1) % items.length;
+        showItem(current);
+      }, 3000);
+    }
+  
+    if (items.length > 0) {
+      showItem(current);
+      startCarousel();
+    }
+  });
+  
