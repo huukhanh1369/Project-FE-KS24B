@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     localStorage.setItem("users", JSON.stringify(users));
 
+    localStorage.setItem("registerSuccess", "true");
     window.location.href = "login.html";
   });
 

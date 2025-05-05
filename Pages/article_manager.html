@@ -51,11 +51,7 @@
         </table>
 
         <div class="pagination">
-          <button>← Previous</button>
-          <div class="pages">
-            <span>1</span><span>2</span><span>3</span><span>...</span><span>10</span>
-          </div>
-          <button>Next →</button>
+          <!-- JS sẽ render phân trang ở đây -->
         </div>
       </div>
     </main>
@@ -86,7 +82,7 @@
     </div>
   </div>
 
-  <!-- Modal: Add New Article -->
+  <!-- Modal: Add New Article (Modified to use dropdown) -->
   <div class="modal hidden" id="articleModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeAddModal()" style="cursor:pointer;float:right;">&times;</span>
@@ -96,7 +92,9 @@
       <input type="text" id="title" placeholder="Enter your article title" />
 
       <label for="category">Article Categories:</label>
-      <input type="text" id="category" placeholder="Enter category" />
+      <select id="category">
+        <!-- Options will be filled by JavaScript -->
+      </select>
 
       <label for="mood">Mood:</label>
       <select id="mood">
@@ -111,17 +109,15 @@
 
       <div class="status-section">
         <span>Status:</span>
-        <label><input type="radio" name="status" value="Public" checked /> Public</label>
-        <label><input type="radio" name="status" value="Private" /> Private</label>
+        <label for="status-public"><input type="radio" id="status-public" name="status" value="Public" checked /> Public</label>
+        <label for="status-private"><input type="radio" id="status-private" name="status" value="Private" /> Private</label>
       </div>
       
-
       <label for="upload">Upload Image:</label>
-      <input type="file" id="upload" accept="image/*" onchange="previewImage(event)">
-      <img id="preview" style="max-width: 100%; margin-top: 10px; display: none;" />
+      <input type="file" id="upload" accept="image/*">
 
       <div class="modal-actions">
-        <button onclick="addArticle()">Add</button>
+        <button id="addArticleBtn">Add</button>
         <button onclick="closeAddModal()">Cancel</button>
       </div>
     </div>

@@ -33,7 +33,7 @@ const data = {
   function addEntry() {
     const input = document.getElementById("entry-input");
     const name = input.value.trim();
-    if (!name) return alert("Please enter a category name.");
+    if (!name) return 
   
     const newId = data.entries.length ? Math.max(...data.entries.map(e => e.id)) + 1 : 1;
     data.entries.push({ id: newId, name });

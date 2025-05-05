@@ -186,3 +186,44 @@ footer {
   font-size: 12px;
   display: none;
 }
+
+/* Modal overlay */
+.modal {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  animation: fadeOutMoveUp 2s forwards;
+}
+
+.modal-content {
+  background-color: #d1fae5; /* xanh lá nhạt */
+  color: #065f46; /* xanh lá đậm */
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeOutMoveUp {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -10px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -30px);
+  }
+}

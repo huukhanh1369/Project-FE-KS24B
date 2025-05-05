@@ -117,7 +117,6 @@ function toggleUserDropdown() {
 }
 
 
-const foundUser = users.find(user => user.email === email.value && user.password === password.value);
 
 // Check trạng thái đăng nhập ngay khi vào trang
 if (localStorage.getItem("loggedIn") !== "true") {

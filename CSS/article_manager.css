@@ -125,9 +125,48 @@ img.article-image {
     border-radius: 4px;
 }
 
-select {
-    padding: 5px;
+/* Màu sắc cho trạng thái Public/Private */
+.status-public {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.status-private {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Màu sắc cho select status */
+select.status-select {
+    padding: 6px 10px;
     border-radius: 4px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Màu cho option trong select */
+select.status-select option[value="Public"] {
+    background-color: #e8f5e9;
+    color: #2ecc71;
+}
+
+select.status-select option[value="Private"] {
+    background-color: #ffebee;
+    color: #e74c3c;
+}
+
+/* Màu nền cho select dựa trên giá trị hiện tại */
+select.status-select.public {
+    background-color: #e8f5e9;
+    color: #2ecc71;
+    border-color: #2ecc71;
+}
+
+select.status-select.private {
+    background-color: #ffebee;
+    color: #e74c3c;
+    border-color: #e74c3c;
 }
 
 .action-btn {
@@ -149,6 +188,7 @@ select {
     color: white;
 }
 
+/* Pagination styles - Cải thiện nút chuyển trang */
 .pagination {
     display: flex;
     justify-content: center;
@@ -157,9 +197,50 @@ select {
     gap: 10px;
 }
 
-.pagination .pages span {
-    margin: 0 5px;
+.pagination button {
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.pagination button:hover {
+    background-color: #5a4bcf;
+}
+
+.pagination button:disabled {
+    background-color: #b3b3b3;
+    cursor: not-allowed;
+}
+
+.pagination .pages {
+    display: flex;
+    gap: 5px;
+}
+
+.pagination .pages span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.pagination .pages span:hover {
+    background-color: #ddd;
+}
+
+.pagination .pages span.active {
+    background-color: #6c5ce7;
+    color: white;
 }
 
 /* Modal styles */
@@ -227,6 +308,19 @@ select {
     gap: 5px;
 }
 
+/* Radio button styles trong modal */
+.status-section input[type="radio"] {
+    width: auto;
+    margin: 0;
+}
+
+.status-section label[for="status-public"] {
+    color: #2ecc71;
+}
+
+.status-section label[for="status-private"] {
+    color: #e74c3c;
+}
 
 .modal-actions {
     display: flex;
@@ -258,3 +352,4 @@ select {
     height: auto;
     display: none;
 }
+
