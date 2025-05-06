@@ -5,10 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/7b988689d5.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../CSS/index.css" />
-  <a href="post-detail.html" class="blog-card">...</a>
-
-  <title>Blog Layout</title>
+  <link rel="stylesheet" href="./CSS/index.css" />
+  <title>RIKKEI EDU BLOG</title>
 </head>
 
 <body>
@@ -17,7 +15,7 @@
     <div class="logo">RIKKEI_EDU_BLOG</div>
     <input type="text" class="search-input" placeholder="Search for articles..." />
     <div class="user-menu">
-      <img src="../assets/imgs/Avatar.png" class="avatar" onclick="toggleUserDropdown()" />
+      <img src="../assets/imgs/Avatar.png" class="avatar" />
       <div id="userDropdown" class="dropdown-menu hidden">
         <div class="profile-info">
           <img src="../assets/imgs/Avatar.png" class="dropdown-avatar" />
@@ -34,7 +32,6 @@
         </ul>
       </div>
     </div>
-    
   </header>
 
   <main class="content">
@@ -42,53 +39,14 @@
     <section class="recent-posts">
       <h2>Recent blog posts</h2>
       <div class="recent-grid">
-
         <div class="recent-layout">
-          <!-- Bài viết lớn bên trái -->
-          <div class="featured-post">
-            <img src="../assets/imgs/article1.png" alt="Main Article" />
-            <div class="post-info">
-              <p class="date">Date: 2025-02-25</p>
-              <h3>A Productive Day at Work</h3>
-              <p class="desc">
-                Today was a really productive day at work. I managed to finish a report ahead of schedule and received positive feedback from my manager.
-              </p>
-              <span class="tag journal">Daily Journal</span>
-            </div>
-          </div>
-        
-          <!-- Hai bài viết nhỏ bên phải -->
-          <div class="side-posts">
-            <!-- Post 1 -->
-            <div class="small-post">
-              <img src="../assets/imgs/article2.png" alt="Article" />
-              <div class="post-info">
-                <p class="date">Date: 2025-02-24</p>
-                <h4>My First Job Interview Experience</h4>
-                <p class="desc">I had my first job interview today! I was nervous at first, but as the conversation went on, I felt more confident.</p>
-                <span class="tag work">Work & Career</span>
-              </div>
-            </div>
-        
-            <!-- Post 2 -->
-            <div class="small-post">
-              <img src="../assets/imgs/article3.png" alt="Article" />
-              <div class="post-info">
-                <p class="date">Date: 2025-02-23</p>
-                <h4>Overthinking Everything</h4>
-                <p class="desc">Lately, I have been overthinking everything, from small decisions to bigger life choices. I know I should trust myself.</p>
-                <span class="tag thoughts">Personal Thoughts</span>
-              </div>
-            </div>
-          </div>
+          <!-- Featured post and side posts will be rendered by JS -->
         </div>
-        
+      </div>
     </section>
 
-
     <div class="add-article">
-
-      <!-- Nút mở modal -->
+      <!-- Add New Article Button -->
       <button id="openModalBtn" class="open-modal-btn">➕ Add New Article</button>
 
       <!-- Modal -->
@@ -101,10 +59,17 @@
           <input type="text" id="title" placeholder="Enter your article title" />
 
           <label for="category">Article Categories:</label>
-          <input type="text" id="category" placeholder="Enter category" />
+          <select id="category">
+            <!-- Options will be populated by JavaScript -->
+          </select>
 
           <label for="mood">Mood:</label>
-          <input type="text" id="mood" value="😊 Happy" readonly />
+          <select id="mood">
+            <option value="😊 Happy">😊 Happy</option>
+            <option value="😢 Sad">😢 Sad</option>
+            <option value="😎 Confident">😎 Confident</option>
+            <option value="😴 Tired">😴 Tired</option>
+          </select>
 
           <label for="content">Content:</label>
           <textarea id="content" rows="5" placeholder="Write your article..."></textarea>
@@ -112,119 +77,55 @@
           <div class="status-section">
             <span>Status:</span>
             <label for="status-public">
-              <input type="radio" id="status-public" name="status" value="public" checked />
+              <input type="radio" id="status-public" name="status" value="Public" checked />
               Public
             </label>
             <label for="status-private">
-              <input type="radio" id="status-private" name="status" value="private" />
+              <input type="radio" id="status-private" name="status" value="Private" />
               Private
             </label>
           </div>
-
 
           <div class="upload-section">
             <label for="fileUpload" class="upload-label">
               <i class="fa-solid fa-upload"></i> Browse and choose a file to upload
             </label>
-            <input type="file" id="fileUpload" hidden>
+            <input type="file" id="fileUpload" accept="image/*">
+            <div id="imagePreview" class="image-preview hidden"></div>
           </div>
 
-          <button class="submit-btn">Add</button>
+          <button class="submit-btn">Add Article</button>
         </div>
       </div>
     </div>
 
-
+    <!-- Category Navigation -->
     <nav class="categories">
-      <span>All blog posts</span>
-      <span>Daily Journal</span>
-      <span>Work & Career</span>
-      <span>Personal Thoughts</span>
-      <span>Emotions & Feelings</span>
+      <!-- Category tabs will be rendered by JS -->
     </nav>
 
-
+    <!-- Blog Articles Grid -->
     <div class="blog-grid">
-      <!-- Card 1 -->
-      <div class="blog-card">
-        <img src="../assets/imgs/article1.png" alt="Article Image" />
-        <div class="card-content">
-          <p class="date">Date: 2025-02-25</p>
-          <div class="card-header">
-            <h3>A Productive Day at Work</h3>
-            <span class="arrow">↗</span>
-          </div>
-          <p class="desc">Today was a really productive day at work. I managed to finish a report ahead of schedule and received positive feedback from my manager.</p>
-          <span class="tag journal">Daily Journal</span>
-        </div>
-      </div>
-
-      <div class="blog-card"
-     data-title="A Productive Day at Work"
-     data-content="Today was a really productive day at work. I managed to finish a report ahead of schedule and received positive feedback from my manager."
-     data-avatar="../assets/imgs/Avatar.png"
-     data-likes="15"
-     data-replies="6"
-     data-comments='[
-       {"avatar":"../assets/imgs/Avatar1.png", "text":"very good!", "likes":15, "replies":6},
-       {"avatar":"../assets/imgs/Avatar2.png", "text":"hello rikkei!", "likes":3, "replies":1}
-     ]'>
-  <img src="../assets/imgs/article1.png" alt="Article Image" />
-  <div class="card-content">
-    <p class="date">Date: 2025-04-24</p>
-    <div class="card-header">
-      <h3>A Productive Day at Work</h3>
-      <span class="arrow">↗</span>
-    </div>
-    <p class="desc">Finished early, had time for a walk, got praised!</p>
-    <span class="tag journal">Daily Journal</span>
-  </div>
-</div>
-
-    
-      <!-- Card 2 -->
-      <div class="blog-card">
-        <img src="../assets/imgs/article2.png" alt="Article Image" />
-        <div class="card-content">
-          <p class="date">Date: 2025-02-24</p>
-          <div class="card-header">
-            <h3>My First Job Interview Experience</h3>
-            <span class="arrow">↗</span>
-          </div>
-          <p class="desc">I had my first job interview today! I was nervous at first, but as the conversation went on, I felt more confident.</p>
-          <span class="tag work">Work & Career</span>
-        </div>
-      </div>
-    
-      <!-- Card 3 -->
-      <div class="blog-card">
-        <img src="../assets/imgs/article3.png" alt="Article Image" />
-        <div class="card-content">
-          <p class="date">Date: 2025-02-23</p>
-          <div class="card-header">
-            <h3>Overthinking Everything</h3>
-            <span class="arrow">↗</span>
-          </div>
-          <p class="desc">Lately, I have been overthinking everything, from small decisions to bigger life choices. I know I should trust myself.</p>
-          <span class="tag thoughts">Personal Thoughts</span>
-        </div>
-      </div>
+      <!-- Blog cards will be rendered by JS -->
     </div>
 
+    <!-- Pagination -->
     <div class="pagination">
-      <button>&laquo; Previous</button>
+      <button class="prev-btn">&laquo; Previous</button>
       <div class="pages">
-        <span>1</span>
+        <span class="active">1</span>
         <span>2</span>
         <span>3</span>
-        ...
+        <span>...</span>
         <span>10</span>
       </div>
-      <button>Next &raquo;</button>
+      <button class="next-btn">Next &raquo;</button>
     </div>
   </main>
+
+  <!-- Post Detail Modal -->
   <div id="postDetailModal" class="modal hidden">
-    <div class="modal-content">
+    <div class="modal-content post-modal">
       <span class="close-btn" id="closeDetailModal">&times;</span>
   
       <div class="post-detail">
@@ -241,7 +142,7 @@
         </div>
   
         <div id="modalComments">
-          <!-- Các comment sẽ được thêm vào bằng JavaScript -->
+          <!-- Comments will be added by JavaScript -->
         </div>
       </div>
     </div>
@@ -249,19 +150,19 @@
 
   <footer class="footer">
     <div class="footer-container">
-      <!-- Cột 1: Logo + mô tả -->
+      <!-- Column 1: Logo + description -->
       <div class="footer-brand">
         <h2>MY BLOG</h2>
       </div>
 
-      <!-- Cột 2: About -->
+      <!-- Column 2: About -->
       <div class="footer-col">
         <h4>About</h4>
         <strong>Rareblocks</strong>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dictum aliquet accumsan porta lectus...</p>
       </div>
 
-      <!-- Cột 3: Company -->
+      <!-- Column 3: Company -->
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
@@ -272,7 +173,7 @@
         </ul>
       </div>
 
-      <!-- Cột 4: Help -->
+      <!-- Column 4: Help -->
       <div class="footer-col">
         <h4>Help</h4>
         <ul>
@@ -283,7 +184,7 @@
         </ul>
       </div>
 
-      <!-- Cột 5: Resources -->
+      <!-- Column 5: Resources -->
       <div class="footer-col">
         <h4>Resources</h4>
         <ul>
@@ -303,30 +204,8 @@
       <a href="#"><i class="fa-brands fa-github"></i></a>
     </div>
   </footer>
-  <div id="postDetailModal" class="modal hidden">
-    <div class="modal-content">
-      <button class="back-btn" id="closeDetailModal">←</button>
-  
-      <div class="post-detail">
-        <div class="main-post">
-          <img src="" alt="Author Avatar" class="author-avatar" id="modalAvatar" />
-          <div class="post-content">
-            <h2 id="modalTitle"></h2>
-            <p id="modalContent"></p>
-            <div class="post-actions">
-              <span id="modalLikes">0 Likes</span>
-              <span id="modalReplies">0 Replies</span>
-            </div>
-          </div>
-        </div>
-  
-        <div id="modalComments">
-          <!-- Các comment sẽ được thêm vào bằng JavaScript -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src="../JS/index.js"></script>
+
+  <script src="./JS/index.js"></script>
 </body>
 
 </html>

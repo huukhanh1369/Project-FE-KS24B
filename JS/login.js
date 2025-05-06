@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "user_manager.html";
     } else if (foundUser) {
       localStorage.setItem("loggedIn", "true");
-      window.location.href = "index.html";
+      window.location.href = "../index.html";
     } else {
       showError(password, "Email or Password is incorrect.");
     }

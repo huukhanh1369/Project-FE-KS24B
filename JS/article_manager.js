@@ -21,7 +21,8 @@ const defaultArticles = [
     category: "Daily Journal", 
     content: "Today was a really productive day at work...", 
     status: "Public", 
-    img: "../assets/imgs/article1.png" 
+    img: "../assets/imgs/article1.png",
+    date: "2025-02-25"
   },
   { 
     id: 2,
@@ -29,7 +30,8 @@ const defaultArticles = [
     category: "Work & Career", 
     content: "I had my first job interview today...", 
     status: "Private", 
-    img: "../assets/imgs/article2.png" 
+    img: "../assets/imgs/article2.png",
+    date: "2025-02-24" 
   },
   { 
     id: 3,
@@ -37,7 +39,8 @@ const defaultArticles = [
     category: "Travel", 
     content: "Explored new places...", 
     status: "Public", 
-    img: "../assets/imgs/article3.png" 
+    img: "../assets/imgs/article3.png",
+    date: "2025-02-23" 
   },
 ];
 
@@ -45,7 +48,11 @@ const defaultArticles = [
 const defaultEntryCategories = [
   { id: 1, name: "Nhật ký học tập" },
   { id: 2, name: "Nhật ký mục tiêu và kế hoạch" },
-  { id: 3, name: "Nhật ký trải nghiệm - học qua đời sống" }
+  { id: 3, name: "Nhật ký trải nghiệm - học qua đời sống" },
+  { id: 4, name: "Daily Journal" },
+  { id: 5, name: "Work & Career" },
+  { id: 6, name: "Personal Thoughts" },
+  { id: 7, name: "Travel" }
 ];
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -73,10 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
   loadArticlesFromStorage();
   loadCategoriesFromStorage();
   
-  // Đổi từ blog-grid sang articleTable để hiển thị bài viết trong bảng
+  // Hiển thị bài viết trong bảng
   renderArticleTable();
   
-  // Thêm lắng nghe sự kiện cho nút add trong modal - FIX: sửa selector để đúng với nút "Add"
+  // Thêm lắng nghe sự kiện cho nút add trong modal
   const addButton = document.getElementById("addArticleBtn");
   if (addButton) {
     addButton.addEventListener("click", addArticle);
@@ -84,13 +91,65 @@ document.addEventListener("DOMContentLoaded", function () {
   
   // Thiết lập select category trong modal thêm bài
   updateCategoryDropdown();
+  
+  // Xử lý sự kiện click ngoài modal để đóng
+  window.addEventListener("click", function(event) {
+    const modal = document.getElementById("articleModal");
+    const editModal = document.getElementById("editModal");
+    const deleteModal = document.getElementById("deleteModal");
+    
+    if (event.target === modal) {
+      closeAddModal();
+    }
+    
+    if (event.target === editModal) {
+      closeEditModal();
+    }
+    
+    if (event.target === deleteModal) {
+      closeDeleteModal();
+    }
+  });
+  
+  // Xử lý sự kiện upload ảnh
+  const uploadInput = document.getElementById("upload");
+  if (uploadInput) {
+    uploadInput.addEventListener("change", handleImageUpload);
+  }
 });
+
+function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  // Kiểm tra xem có phải là file ảnh không
+  if (!file.type.match('image.*')) {
+    showValidationModal("Vui lòng chọn file ảnh!");
+    return;
+  }
+  
+  // Chỉ đọc file và lưu vào biến global để sử dụng sau
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    // Lưu đường dẫn ảnh vào biến global để sử dụng trong addArticle
+    window.uploadedImageData = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
 
 // Hàm load bài viết từ localStorage
 function loadArticlesFromStorage() {
   const storedArticles = localStorage.getItem("articles");
   if (storedArticles) {
     articles = JSON.parse(storedArticles);
+    
+    // Kiểm tra và thêm trường date nếu chưa có
+    articles = articles.map(article => {
+      if (!article.date) {
+        article.date = formatDate(new Date());
+      }
+      return article;
+    });
   } else {
     // Nếu không có dữ liệu, sử dụng dữ liệu mặc định
     articles = [...defaultArticles];
@@ -183,6 +242,7 @@ function renderArticleTable() {
   renderPagination();
 }
 
+// Hàm render phân trang
 function renderPagination() {
   const paginationContainer = document.querySelector(".pagination");
   if (!paginationContainer) return;
@@ -246,6 +306,7 @@ function renderPagination() {
   paginationContainer.innerHTML = html;
 }
 
+// Hàm chuyển trang
 function changePage(direction) {
   const pageCount = Math.ceil(articles.length / articlesPerPage);
 
@@ -258,9 +319,18 @@ function changePage(direction) {
   renderArticleTable();
 }
 
+// Hàm đi đến trang cụ thể
 function goToPage(page) {
   currentPage = page;
   renderArticleTable();
+}
+
+// Định dạng ngày tháng
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 // Hàm cập nhật trạng thái bài viết
@@ -285,10 +355,171 @@ function updateStatus(id, newStatus) {
       const selectElement = event.target;
       selectElement.className = `status-select ${newStatus.toLowerCase()}`;
     }
+    
+    // Thông báo cập nhật thành công với thông tin bổ sung
+    showValidationModal(`Cập nhật trạng thái thành công! 
+      ${newStatus === "Public" ? "Bài viết sẽ hiển thị trên trang chủ." : "Bài viết sẽ không hiển thị trên trang chủ."}`);
   }
 }
 
-// Hàm hiển thị modal thông báo lỗi
+// Hàm mở modal chỉnh sửa bài viết
+function openEditModal(id) {
+  const article = articles.find(a => a.id === id);
+  if (!article) return;
+  
+  currentEditId = id;
+  
+  const modal = document.getElementById("editModal");
+  const titleInput = document.getElementById("editTitle");
+  const categoryInput = document.getElementById("editCategory");
+  const contentInput = document.getElementById("editContent");
+  
+  titleInput.value = article.title;
+  categoryInput.value = article.category;
+  contentInput.value = article.content;
+  
+  modal.classList.remove("hidden");
+}
+
+// Hàm đóng modal chỉnh sửa
+function closeEditModal() {
+  document.getElementById("editModal").classList.add("hidden");
+  currentEditId = null;
+}
+
+// Hàm lưu bài viết sau khi chỉnh sửa
+function saveEdit() {
+  if (!currentEditId) return;
+  
+  const titleInput = document.getElementById("editTitle");
+  const categoryInput = document.getElementById("editCategory");
+  const contentInput = document.getElementById("editContent");
+  
+  // Kiểm tra dữ liệu nhập
+  if (!titleInput.value || !contentInput.value) {
+    showValidationModal("Vui lòng điền đầy đủ tiêu đề và nội dung!");
+    return;
+  }
+  
+  const articleIndex = articles.findIndex(a => a.id === currentEditId);
+  if (articleIndex === -1) return;
+  
+  // Cập nhật thông tin bài viết
+  articles[articleIndex].title = titleInput.value;
+  articles[articleIndex].category = categoryInput.value;
+  articles[articleIndex].content = contentInput.value;
+  // Cập nhật desc (trích đoạn ngắn của content)
+  articles[articleIndex].desc = contentInput.value.substring(0, 100) + "...";
+  
+  // Lưu vào localStorage
+  saveArticlesToStorage();
+  
+  // Cập nhật lại giao diện
+  renderArticleTable();
+  
+  // Đóng modal
+  closeEditModal();
+  
+  // Thông báo thành công
+  showValidationModal("Cập nhật bài viết thành công!");
+}
+
+// Hàm mở modal xác nhận xóa
+function openDeleteModal(id) {
+  deleteId = id;
+  document.getElementById("deleteModal").classList.remove("hidden");
+}
+
+// Hàm đóng modal xác nhận xóa
+function closeDeleteModal() {
+  document.getElementById("deleteModal").classList.add("hidden");
+  deleteId = null;
+}
+
+// Hàm xác nhận xóa bài viết
+function confirmDelete() {
+  if (!deleteId) return;
+  
+  // Tìm và xóa bài viết theo ID
+  const articleIndex = articles.findIndex(a => a.id === deleteId);
+  if (articleIndex !== -1) {
+    articles.splice(articleIndex, 1);
+    
+    // Lưu thay đổi vào localStorage
+    saveArticlesToStorage();
+    
+    // Cập nhật lại giao diện
+    renderArticleTable();
+    
+    // Đóng modal
+    closeDeleteModal();
+    
+    // Thông báo thành công
+    showValidationModal("Xóa bài viết thành công!");
+  }
+}
+
+// Hàm thêm bài viết mới từ form trong modal
+function addArticle() {
+  const title = document.getElementById("title").value;
+  const category = document.getElementById("category").value;
+  const content = document.getElementById("content").value;
+  const mood = document.getElementById("mood").value;
+  
+  // Kiểm tra các trường bắt buộc
+  if (!title || !content) {
+    showValidationModal("Vui lòng điền đầy đủ tiêu đề và nội dung!");
+    return;
+  }
+  
+  // Lấy trạng thái (public/private)
+  const statusRadios = document.querySelectorAll('input[name="status"]');
+  let status = "Public"; // Mặc định là public
+  for (const radio of statusRadios) {
+    if (radio.checked) {
+      status = radio.value;
+      break;
+    }
+  }
+  
+  // Lấy ảnh đại diện cho bài viết
+  let imgSrc = "../assets/imgs/article1.png"; // Mặc định
+  
+  // Sử dụng ảnh đã tải lên nếu có
+  if (window.uploadedImageData) {
+    imgSrc = window.uploadedImageData;
+  }
+  
+  // Tạo bài viết mới
+  const newArticle = {
+    id: Date.now(), // Sử dụng timestamp làm ID
+    title: title,
+    category: category || "Daily Journal",
+    content: content,
+    desc: content.substring(0, 100) + "...",
+    date: formatDate(new Date()),
+    img: imgSrc,
+    status: status,
+    mood: mood
+  };
+  
+  // Thêm vào mảng bài viết
+  articles.push(newArticle);
+  
+  // Lưu vào localStorage
+  saveArticlesToStorage();
+  
+  // Cập nhật lại giao diện
+  renderArticleTable();
+  
+  // Đóng modal
+  closeAddModal();
+  
+  // Thông báo thành công
+  showValidationModal(`Thêm bài viết thành công! ${status === "Public" ? "Bài viết sẽ hiển thị trên trang chủ." : "Bài viết sẽ không hiển thị trên trang chủ."}`);
+}
+
+// Hàm hiển thị modal thông báo
 function showValidationModal(message) {
   // Tạo modal nếu chưa tồn tại
   let validationModal = document.getElementById("validationModal");
@@ -318,7 +549,7 @@ function showValidationModal(message) {
   validationModal.classList.remove("hidden");
 }
 
-// Hàm đóng modal thông báo lỗi
+// Hàm đóng modal thông báo
 function closeValidationModal() {
   const validationModal = document.getElementById("validationModal");
   if (validationModal) {
@@ -353,203 +584,6 @@ function closeAddModal() {
     uploadElem.value = "";
   }
   
-  // Reset preview if exists
-  const preview = document.getElementById("preview");
-  if (preview) {
-    preview.style.display = "none";
-    preview.src = "";
-  }
+  // Xóa dữ liệu ảnh đã tải
+  window.uploadedImageData = null;
 }
-
-// Hàm chuyển đổi file ảnh thành base64
-function convertImageToBase64(file, callback) {
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    callback(e.target.result);
-  };
-  reader.readAsDataURL(file);
-}
-
-function addArticle() {
-  const title = document.getElementById("title").value;
-  const categorySelect = document.getElementById("category");
-  const category = categorySelect.value;
-  const content = document.getElementById("content").value;
-  const statusRadios = document.querySelectorAll('input[name="status"]');
-  let status = "Public"; // Default status
-  
-  // Lấy giá trị status được chọn
-  for (const radio of statusRadios) {
-    if (radio.checked) {
-      status = radio.value;
-      break;
-    }
-  }
-  
-  // Kiểm tra dữ liệu đầu vào bằng modal thay vì alert
-  if (!title || !category || !content) {
-    showValidationModal("Vui lòng điền đầy đủ thông tin bài viết!");
-    return;
-  }
-  
-  // Tạo ID mới bằng cách lấy ID lớn nhất hiện tại + 1
-  const newId = articles.length > 0 ? Math.max(...articles.map(article => article.id)) + 1 : 1;
-  
-  // Xử lý ảnh
-  const imageInput = document.getElementById("upload");
-  if (imageInput && imageInput.files && imageInput.files[0]) {
-    convertImageToBase64(imageInput.files[0], function(base64Image) {
-      // Thêm bài viết với ảnh base64
-      addArticleWithImage(newId, title, category, content, status, base64Image);
-    });
-  } else {
-    // Thêm bài viết với ảnh mặc định
-    addArticleWithImage(newId, title, category, content, status, "../assets/imgs/default.png");
-  }
-}
-
-function addArticleWithImage(id, title, category, content, status, img) {
-  // Thêm bài viết mới vào mảng
-  articles.push({
-    id: id,
-    title: title,
-    category: category,
-    content: content,
-    status: status,
-    img: img
-  });
-  
-  // Lưu vào localStorage
-  saveArticlesToStorage();
-  
-  // Đóng modal và hiển thị lại bảng
-  closeAddModal();
-  renderArticleTable();
-  
-  // Thông báo thêm thành công bằng modal
-  showValidationModal("Thêm bài viết thành công!");
-}
-
-// Hàm xử lý modal sửa bài viết
-function openEditModal(id) {
-  const article = articles.find(article => article.id === id);
-  if (!article) return;
-  
-  currentEditId = id;
-  
-  document.getElementById("editTitle").value = article.title;
-  document.getElementById("editCategory").value = article.category;
-  document.getElementById("editContent").value = article.content;
-  
-  const modal = document.getElementById("editModal");
-  if (modal) {
-    modal.classList.remove("hidden");
-  }
-}
-
-function closeEditModal() {
-  const modal = document.getElementById("editModal");
-  if (modal) {
-    modal.classList.add("hidden");
-  }
-  currentEditId = null;
-}
-
-function saveEdit() {
-  if (currentEditId === null) return;
-  
-  const title = document.getElementById("editTitle").value;
-  const category = document.getElementById("editCategory").value;
-  const content = document.getElementById("editContent").value;
-  
-  if (!title || !category || !content) {
-    showValidationModal("Vui lòng điền đầy đủ thông tin bài viết!");
-    return;
-  }
-  
-  const articleIndex = articles.findIndex(article => article.id === currentEditId);
-  if (articleIndex !== -1) {
-    articles[articleIndex].title = title;
-    articles[articleIndex].category = category;
-    articles[articleIndex].content = content;
-    
-    // Lưu thay đổi vào localStorage
-    saveArticlesToStorage();
-  }
-  
-  closeEditModal();
-  renderArticleTable();
-  
-  // Thông báo cập nhật thành công
-  showValidationModal("Cập nhật bài viết thành công!");
-}
-
-// Hàm xử lý modal xóa bài viết
-function openDeleteModal(id) {
-  deleteId = id;
-  
-  const modal = document.getElementById("deleteModal");
-  if (modal) {
-    modal.classList.remove("hidden");
-  }
-}
-
-function closeDeleteModal() {
-  const modal = document.getElementById("deleteModal");
-  if (modal) {
-    modal.classList.add("hidden");
-  }
-  deleteId = null;
-}
-
-function confirmDelete() {
-  if (deleteId === null) return;
-  
-  const articleIndex = articles.findIndex(article => article.id === deleteId);
-  if (articleIndex !== -1) {
-    articles.splice(articleIndex, 1);
-    
-    // Lưu thay đổi vào localStorage
-    saveArticlesToStorage();
-  }
-  
-  closeDeleteModal();
-  renderArticleTable();
-  
-  // Thông báo xóa thành công
-  showValidationModal("Xóa bài viết thành công!");
-}
-
-// Thêm hàm để hiển thị ảnh preview khi upload
-// document.addEventListener("DOMContentLoaded", function() {
-//   const uploadInput = document.getElementById("upload");
-  
-//   if (uploadInput) {
-//     uploadInput.addEventListener("change", function() {
-//       const file = this.files[0];
-//       if (file) {
-//         const preview = document.getElementById("preview");
-//         if (!preview) {
-//           // Tạo phần tử preview nếu chưa có
-//           const newPreview = document.createElement("img");
-//           newPreview.id = "preview";
-//           newPreview.style.maxWidth = "100%";
-//           newPreview.style.height = "auto";
-//           newPreview.style.marginTop = "10px";
-          
-//           // Thêm vào sau input file
-//           this.parentNode.insertBefore(newPreview, this.nextSibling);
-//         }
-        
-//         // Hiển thị ảnh preview
-//         const reader = new FileReader();
-//         reader.onload = function(e) {
-//           const preview = document.getElementById("preview");
-//           preview.src = e.target.result;
-//           preview.style.display = "block";
-//         };
-//         reader.readAsDataURL(file);
-//       }
-//     });
-//   }
-// });
