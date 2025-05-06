@@ -7,13 +7,26 @@
   <script src="https://kit.fontawesome.com/7b988689d5.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./CSS/index.css" />
   <title>RIKKEI EDU BLOG</title>
+  <script>
+    if (localStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "./Pages/login.html";
+    }
+  </script>
+  <style>
+    body:not(.logged-in) {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
-
+  <script>
+    if (localStorage.getItem("loggedIn") === "true") {
+      document.body.classList.add("logged-in");
+    }
+  </script>
   <header class="navbar">
     <div class="logo">RIKKEI_EDU_BLOG</div>
-    <input type="text" class="search-input" placeholder="Search for articles..." />
     <div class="user-menu">
       <img src="../assets/imgs/Avatar.png" class="avatar" />
       <div id="userDropdown" class="dropdown-menu hidden">

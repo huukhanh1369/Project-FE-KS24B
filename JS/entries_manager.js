@@ -1,7 +1,9 @@
 const data = {
   entries: []
 };
-
+if (localStorage.getItem("loggedIn") !== "true") {
+  window.location.href = "login.html";
+}
 // Biến tạm lưu ID đang edit hoặc delete
 let currentEditId = null;
 let currentDeleteId = null;

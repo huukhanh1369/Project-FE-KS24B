@@ -61,15 +61,23 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    // Check duplicate username
+    const usernameExists = users.some(user => user.username === username.value.trim());
+    if (usernameExists) {
+      showError(username, "This username is already taken.");
+      return;
+    }
+
     users.push({
-      firstname: firstName.value,
-      lastname: lastName.value,
-      username: username.value,
-      email: email.value,
-      password: password.value,
+      firstname: firstName.value.trim(),
+      lastname: lastName.value.trim(),
+      username: username.value.trim(),
+      email: email.value.trim(),
+      password: password.value.trim(),
       status: "hoạt động",
-      avatar: "https://i.pravatar.cc/150?u=" + username.value,
-      role: "user"
+      avatar: "https://i.pravatar.cc/150?u=" + username.value.trim(),
+      role: "user",
+      isBlocked: false // Thêm thuộc tính isBlocked
     });
 
     localStorage.setItem("users", JSON.stringify(users));

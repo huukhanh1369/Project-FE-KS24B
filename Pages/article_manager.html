@@ -19,7 +19,7 @@
     <!-- Main Content -->
     <main class="main-content">
       <header class="topbar">
-        <input type="text" placeholder="Search articles..." class="search-box" />
+        <!-- <input type="text" placeholder="Search articles..." class="search-box" /> -->
         <div class="icons">
           <span>🔔</span>
           <span>✉️</span>
@@ -62,8 +62,15 @@
     <div class="modal-content">
       <h3>Sửa bài viết</h3>
       <input type="text" id="editTitle" placeholder="Tiêu đề">
-      <input type="text" id="editCategory" placeholder="Chủ đề">
+      <label for="editCategory">Chủ đề:</label>
+      <select id="editCategory">
+        <!-- Options will be filled by JavaScript -->
+      </select>
+      <label for="editContent">Nội dung:</label>
       <textarea id="editContent" placeholder="Nội dung" rows="5"></textarea>
+      <label for="editUpload">Thay đổi ảnh:</label>
+      <input type="file" id="editUpload" accept="image/*">
+      <div id="editImagePreview" class="image-preview"></div>
       <div class="modal-actions">
         <button onclick="saveEdit()">Lưu</button>
         <button onclick="closeEditModal()">Hủy</button>

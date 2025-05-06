@@ -49,9 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (foundAdmin) {
       localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("currentUserEmail", email.value)
       window.location.href = "user_manager.html";
     } else if (foundUser) {
       localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("currentUserEmail", email.value)
       window.location.href = "../index.html";
     } else {
       showError(password, "Email or Password is incorrect.");

@@ -353,3 +353,15 @@ select.status-select.private {
     display: none;
 }
 
+/* Style cho ảnh trong modal chỉnh sửa */
+.image-preview {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.image-preview img.preview-img {
+    max-width: 200px; /* Giới hạn chiều rộng tối đa */
+    max-height: 150px; /* Giới hạn chiều cao tối đa */
+    object-fit: contain; /* Đảm bảo ảnh không bị méo */
+    border-radius: 4px;
+}
