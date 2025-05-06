@@ -208,7 +208,7 @@ function saveCategoriesStorage() {
   localStorage.setItem("entryCategories", JSON.stringify(entryCategories));
 }
 
-// Hàm cập nhật dropdown danh mục trong modal
+// Hàm cập nhật dropdown danhsome code danh mục trong modal
 function updateCategoryDropdown(modalType = 'add', selectedCategory = '') {
   const categorySelect = modalType === 'add' ? document.getElementById("category") : document.getElementById("editCategory");
   if (categorySelect) {
@@ -647,38 +647,3 @@ function closeAddModal() {
   // Xóa dữ liệu ảnh đã tải
   window.uploadedImageData = null;
 }
-
-// Đoạn script Cloudflare được di chuyển từ HTML
-(function() {
-  function c() {
-    var b = a.contentDocument || a.contentWindow.document;
-    if (b) {
-      var d = b.createElement('script');
-      d.innerHTML = "window.__CF$cv$params={r:'93b9e2f98fd844ef',t:'MTc0NjU0OTI4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
-      b.getElementsByTagName('head')[0].appendChild(d);
-    }
-  }
-  
-  if (document.body) {
-    var a = document.createElement('iframe');
-    a.height = 1;
-    a.width = 1;
-    a.style.position = 'absolute';
-    a.style.top = 0;
-    a.style.left = 0;
-    a.style.border = 'none';
-    a.style.visibility = 'hidden';
-    document.body.appendChild(a);
-    if ('loading' !== document.readyState) {
-      c();
-    } else if (window.addEventListener) {
-      document.addEventListener('DOMContentLoaded', c);
-    } else {
-      var e = document.onreadystatechange || function() {};
-      document.onreadystatechange = function(b) {
-        e(b);
-        'loading' !== document.readyState && (document.onreadystatechange = e, c());
-      };
-    }
-  }
-})();
